@@ -1,30 +1,46 @@
-import Link from 'next/link'
+import NextLink from 'next/link'
 
-import Container from 'components/Container'
+import {
+  Container,
+  Box,
+  Heading,
+  Text,
+  List,
+  ListItem,
+  ListIcon
+} from '@chakra-ui/react'
+import { MdPlayArrow } from 'react-icons/md'
 import Header from 'components/Header'
 import fetch from 'isomorphic-unfetch'
 
 export default function Course({ course }) {
   return (
-    <Container>
+    <Container maxW="container.lg">
       <Header />
-      <h2>{course.title}</h2>
-      <p>{course.description}</p>
-      <hr />
-      <ul>
-        {course.lessons.map((lesson) => (
-          <li key={lesson.id}>
-            <Link
-              prefetch
-              passHref
-              href="/lessons/[slug]"
-              as={`/lessons/${lesson.slug}`}
-            >
-              <a>- {lesson.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <Box borderWidth="1px" borderRadius="md" p="6" mb="6">
+        <Heading as="h2" size="xl" mb="2" color="purple.700">
+          {course.title}
+        </Heading>
+        <Text>{course.description}</Text>
+      </Box>
+
+      <Box borderWidth="1px" borderRadius="md" p="6">
+        <List spacing={3}>
+          {course.lessons.map((lesson) => (
+            <ListItem key={lesson.id}>
+              <ListIcon as={MdPlayArrow} color="purple.700" />
+              <NextLink
+                prefetch
+                passHref
+                href="/lessons/[slug]"
+                as={`/lessons/${lesson.slug}`}
+              >
+                <a>{lesson.title}</a>
+              </NextLink>
+            </ListItem>
+          ))}
+        </List>
+      </Box>
     </Container>
   )
 }
