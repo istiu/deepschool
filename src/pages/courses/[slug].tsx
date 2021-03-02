@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import Container from 'components/Container'
 import Header from 'components/Header'
 import fetch from 'isomorphic-unfetch'
@@ -8,9 +10,19 @@ export default function Course({ course }) {
       <Header />
       <h2>{course.title}</h2>
       <p>{course.description}</p>
+      <hr />
       <ul>
         {course.lessons.map((lesson) => (
-          <li key={lesson.id}>- {lesson.title}</li>
+          <li key={lesson.id}>
+            <Link
+              prefetch
+              passHref
+              href="/lessons/[slug]"
+              as={`/lessons/${lesson.slug}`}
+            >
+              <a>- {lesson.title}</a>
+            </Link>
+          </li>
         ))}
       </ul>
     </Container>
@@ -20,7 +32,6 @@ export default function Course({ course }) {
 export async function getServerSideProps(context) {
   const { API_URL } = process.env
   const { slug } = context.query
-  console.log(`${API_URL}/courses/${slug}`)
 
   const res = await fetch(`${API_URL}/courses?slug=${slug}`)
   const data = await res.json()
