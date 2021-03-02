@@ -1,10 +1,19 @@
-import { ReactNode } from 'react'
-import * as S from './styles'
+import { Flex, useColorMode, FlexProps } from '@chakra-ui/react'
 
-interface Type {
-  children: ReactNode
+export default function Container(props: FlexProps) {
+  const { colorMode } = useColorMode()
+
+  const bgColor = { light: 'gray.100', dark: 'gray.900' }
+
+  const color = { light: 'black', dark: 'white' }
+  return (
+    <Flex
+      direction="column"
+      alignItems="center"
+      justifyContent="flex-start"
+      bg={bgColor[colorMode]}
+      color={color[colorMode]}
+      {...props}
+    />
+  )
 }
-
-const Container = ({ children }: Type) => <S.Container>{children}</S.Container>
-
-export default Container

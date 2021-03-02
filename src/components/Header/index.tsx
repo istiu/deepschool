@@ -1,14 +1,25 @@
-import Link from 'next/link'
-import * as S from './styles'
+import NextLink from 'next/link'
+
+import { Flex, Box, Spacer, Heading, Button } from '@chakra-ui/react'
 
 export default function Header() {
   return (
-    <S.Header>
-      <S.Title>
-        <Link href="/">
-          <a>DeepSchool</a>
-        </Link>
-      </S.Title>
-    </S.Header>
+    <Flex alignItems="center">
+      <Box py="6">
+        <Heading as="h1" size="xl">
+          <NextLink href="/">
+            <a>DeepSchool</a>
+          </NextLink>
+        </Heading>
+      </Box>
+      <Spacer />
+      <Box>
+        <Button colorScheme="purple" variant="ghost" as="span">
+          <NextLink href="/" passHref>
+            Sair
+          </NextLink>
+        </Button>
+      </Box>
+    </Flex>
   )
 }
