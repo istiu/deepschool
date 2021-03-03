@@ -1,13 +1,17 @@
-import Container from 'components/Container'
+import { Container, Box, Heading, Text } from '@chakra-ui/react'
 import Header from 'components/Header'
 
 export default function Lesson({ lesson }) {
   return (
-    <Container>
+    <Container maxW="container.lg">
       <Header />
 
-      <h2>{lesson.title}</h2>
-      <p>{lesson.body}</p>
+      <Box borderWidth="1px" borderRadius="md" p="6" mb="6">
+        <Heading as="h2" size="xl" mb="2" color="purple.700">
+          {lesson.title}
+        </Heading>
+        <Text>{lesson.body}</Text>
+      </Box>
     </Container>
   )
 }
