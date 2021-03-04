@@ -1,34 +1,83 @@
-import Card from 'components/Card'
-// import Container from 'components/Container'
-import Header from 'components/Header'
+import { getSession, signIn, signOut } from 'next-auth/client'
+import Head from 'next/head'
+import Link from 'next/link'
 
-import { Container, Grid } from '@chakra-ui/react'
+const Home = ({ session }) => {
+  const signInButtonNode = () => {
+    if (session) {
+      return false
+    }
 
-export default function Home({ courses }) {
+    return (
+      <div>
+        <Link href="/api/auth/signin">
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              signIn('google')
+            }}
+          >
+            Entrar
+          </button>
+        </Link>
+      </div>
+    )
+  }
+
+  const signOutButtonNode = () => {
+    if (!session) {
+      return false
+    }
+
+    return (
+      <div>
+        <Link href="/api/auth/signout">
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              signOut()
+            }}
+          >
+            Sair
+          </button>
+        </Link>
+      </div>
+    )
+  }
+
+  if (!session) {
+    return (
+      <div className="hero">
+        <div className="navbar">
+          {signOutButtonNode()}
+          {signInButtonNode()}
+        </div>
+        <div className="text">You arent authorized to view this page</div>
+      </div>
+    )
+  }
+
   return (
-    <Container maxW="container.lg">
-      <Header />
-      <Grid
-        templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
-        gap={6}
-      >
-        {courses.map((course) => (
-          <Card key={course.id} course={course} />
-        ))}
-      </Grid>
-    </Container>
+    <div className="hero">
+      <Head>
+        <title>Home Page</title>
+      </Head>
+      <div className="navbar">
+        {signOutButtonNode()}
+        {signInButtonNode()}
+      </div>
+      <div className="text">Hello world</div>
+    </div>
   )
 }
 
-export async function getServerSideProps() {
-  const { API_URL } = process.env
-
-  const res = await fetch(`${API_URL}/courses?_sort=id:DESC`)
-  const data = await res.json()
-
+export const getServerSideProps = async ({ req }) => {
+  const session = await getSession({ req })
   return {
     props: {
-      courses: data
+      session
     }
   }
 }
+
+export default Home

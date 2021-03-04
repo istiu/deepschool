@@ -24,12 +24,16 @@
     "framer-motion": "^3.9.1",
     "isomorphic-unfetch": "^3.1.0",
     "next": "10.0.7",
+    "next-auth": "^3.7.0",
+    "nookies": "^2.5.2",
+    "pg": "^8.5.1",
     "react": "17.0.1",
     "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.13.1",
     "@babel/preset-typescript": "^7.13.0",
+    "@types/next-auth": "^3.1.25",
     "@types/node": "^14.14.31",
     "@types/react": "^17.0.2",
     "@typescript-eslint/eslint-plugin": "^4.15.2",

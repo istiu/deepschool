@@ -1,6 +1,7 @@
 import NextLink from 'next/link'
 
-import { Flex, Box, Spacer, Heading, Button } from '@chakra-ui/react'
+import { Flex, Box, Spacer, Heading } from '@chakra-ui/react'
+import Session from 'components/Session'
 
 export default function Header() {
   return (
@@ -14,11 +15,7 @@ export default function Header() {
       </Box>
       <Spacer />
       <Box>
-        <Button colorScheme="purple" variant="ghost" as="span">
-          <NextLink href="/" passHref>
-            Sair
-          </NextLink>
-        </Button>
+        <Session />
       </Box>
     </Flex>
   )
